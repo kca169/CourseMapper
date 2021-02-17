@@ -1,7 +1,4 @@
-{% comment %} 
-Reference: 
-//https://learndjango.com/tutorials/django-login-and-logout-tutorial 
-{% endcomment %}
+<!-- templates/home.html -->
 {% extends 'base.html' %}
 
 {% block title %}CourseMapper Home{% endblock %}
@@ -9,7 +6,6 @@ Reference:
 {% block content %}
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a>
