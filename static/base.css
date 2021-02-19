@@ -1,0 +1,65 @@
+body{
+    background-color:#e5e2e2 ;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.title{
+    /* background-color:rgba(16, 78, 107, 0.6); */
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 1px 3px #000000;
+    font-size: 75px;
+    letter-spacing: 5px;
+}
+
+.description{
+    color:#284b63;
+    text-align: center;
+    letter-spacing: 2.5px;
+}
+
+.redirect {
+    text-align: center;
+}
+
+/* styling for just the login page */
+.login{
+    color: #ffffff;
+    font-size: 50px;
+}
+
+.form-group{
+    padding-bottom: 20px;
+}
+
+/* styling for just the signup page */
+.signup{
+    color: #ffffff;
+    font-size: 50px;
+}
+
+/* styling for both signup and login pages */
+
+form{
+    background-color: #ffffff; 
+    opacity: 75%;
+    padding: 5%;
+    margin: -5px;
+}
+
+button{
+display: inline-block;
+  padding: 0.5em 3em;
+  border: 0.15em solid #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  color: #495057;
+  text-transform: uppercase;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+}
+
+button:hover{
+    color: #353535;
+    border-color: #353535;
+}
