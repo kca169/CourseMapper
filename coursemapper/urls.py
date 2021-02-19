@@ -14,10 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-"""
-REFERENCES:
-https://learndjango.com/tutorials/django-login-and-logout-tutorial
-"""
+# Refs: [1]
 
 from django.contrib import admin
 from django.urls import path, include
