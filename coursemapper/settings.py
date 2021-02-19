@@ -10,10 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-"""
-REFERENCES:
-https://learndjango.com/tutorials/django-login-and-logout-tutorial
-"""
 
 from pathlib import Path
 
@@ -34,6 +30,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+
+# Refs: [1]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
