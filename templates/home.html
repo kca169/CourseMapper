@@ -13,12 +13,19 @@
   <li><a href="{% url 'logout' %}">Log Out</a></li>
  </ul>
 {% else %}
+
+<style>
+  body {background-color: rgb(247, 192, 192);}
+  .title {color: rgb(153, 153, 238); }
+  .redirect{color:darkblue;}
+</style>
   <h1 class='title'>CourseMapper</h1>
   <h2 class='description'>A tool for SFU students to visualize and plan their degree</h2>
   <div>
   <p class='redirect'>You are not logged in. Login <a href="{% url 'login' %}">here</a></p>
   <p class='redirect'> Don't have an account? Register <a href="{% url 'signup' %}">here</a> </p>
   </div>
+  <img src="coursemapper/static/images/map.png>"
 {% endif %}
 {% endblock %}
  
