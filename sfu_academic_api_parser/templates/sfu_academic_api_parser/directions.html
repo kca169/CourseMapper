@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}CourseMapper{% endblock %}
+
+{% block content %}
+
+<h1>Directions Mode</h1>
+<h3>Courses needed to reach your goal are listed below.</h3>
+{{courses.prerequisites}}
+ <ul>
+    {% comment %} {%for courses in courses%}
+        <li>{{courses.prerequisites}}</li>
+        {%endfor%} {% endcomment %}
+</ul>
+{% endblock %}
