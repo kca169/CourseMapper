@@ -5,6 +5,15 @@
 {% block content %}
 
 <h1>Directions Mode</h1>
+<form action="/" method="post">
+    {% csrf_token %}
+    <label for="department">Department: </label>
+    <input id="department" type="text" name="department" maxlength="100" required>
+
+    <label for="course_number">Course Number: </label>
+    <input id="course_number" type="text" name="course_number" maxlength="100" required>
+    <input type="submit" value="Submit">
+</form>
 <h3>Courses needed to reach your goal are listed below.</h3>
 {{courses.prerequisites}}
  <ul>
