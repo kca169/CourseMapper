@@ -6,3 +6,5 @@
 [2] https://www.toptal.com/developers/gitignore/api/django,python
 [3] https://docs.djangoproject.com/en/3.1/intro/tutorial02/
 [4] https://docs.djangoproject.com/en/3.1/ref/models/fields/
+[5] https://stackoverflow.com/questions/9415616/adding-to-the-constructor-of-a-django-model
+[6] https://docs.djangoproject.com/en/3.1/ref/models/instances/#creating-objects
