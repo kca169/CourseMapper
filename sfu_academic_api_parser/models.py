@@ -8,6 +8,7 @@ THE BASIC COURSE MODEL:
 
 Things to add:
     WQB status
+    ...
 '''
 
 class Course(models.Model):
