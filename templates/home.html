@@ -12,6 +12,18 @@
   <li>Directions Mode</li>
   <li><a href="{% url 'logout' %}">Log Out</a></li>
  </ul>
+ <!--Create form for user to man ually enter grades and data-->
+<h3>In the form below, please enter the course codes you have already taken,
+  along with their grades, in a comma sepaarted list.</h3>
+<p>Example: CMPT120 A, MACM101 B+, CMPT276 F</p>
+  
+<form action="/your-name/" method="post">
+  <label for="your_name">Your name: </label>
+  <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+  <input type="submit" value="Done">
+</form>
+
+
 {% else %}
   <h1 class='title'>CourseMapper</h1>
   <h2 class='description'>A tool for SFU students to visualize and plan their degree</h2>
