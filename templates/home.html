@@ -14,14 +14,19 @@
  </ul>
  <!--Create form for user to man ually enter grades and data-->
 <h3>In the form below, please enter the course codes you have already taken,
-  along with their grades, in a comma sepaarted list.</h3>
+  along with their grades, in a comma separted list.</h3>
 <p>Example: CMPT120 A, MACM101 B+, CMPT276 F</p>
   
-<form action="/your-name/" method="post">
-  <label for="your_name">Your name: </label>
-  <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
-  <input type="submit" value="Done">
+<form action ="coursemapper/accounts/user_input.txt" method="post">
+  <textarea name= "user_inp" id = "user_inp" rows = "20" cols= "100">
+ </textarea>
+  <input type="submit" value =Done!>
 </form>
+
+<!---Create a button to direct user to submit academic trasnscript-->
+<h3>Instead, you can also choose to upload your academic transcript</h3>
+<h3>We will not store your information.</h3>
+<button type="button">Submit academic transcript</button>
 
 
 {% else %}
