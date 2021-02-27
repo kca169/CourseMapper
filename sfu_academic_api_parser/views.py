@@ -38,13 +38,3 @@ def prereqs(request):
     # print(url.status_code) #debug
     # print(url_raw)
     return render(request, 'sfu_academic_api_parser/directions.html', context)
-
-'''def prereqs(request):
-    dep = request.POST.get('department', '')
-    num = request.POST.get('course_number', '')
-    url = 'http://www.sfu.ca/bin/wcm/academic-calendar?2020/spring/courses/' + dep + '/' + num
-    url = requests.get(url)
-    courses = url.json()
-    template = loader.get_template('sfu_academic_api_parser/directions.html')
-    context = {'courses':courses,}
-    return HttpResponse(template.render(context,request))'''

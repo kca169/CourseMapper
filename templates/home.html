@@ -8,24 +8,27 @@
 {% if user.is_authenticated %}
  <h1> Hi {{ user.username|safe }}! Welcome to CourseMapper </h1>
  <ul>
-  <li>Tree Diagram</li>
-  <li><a href="{% url 'prereqs' %}">Directions Mode</a></li>
+  <li>Tree Diagram (unavailable)</li>
+  <li>Directions Mode (unavailable)</li>
+  <li><a href="{% url 'prereqs' %}">Course Lookup</a></li>
   <li><a href="{% url 'logout' %}">Log Out</a></li>
  </ul>
- <!--Create form for user to man ually enter grades and data-->
-<h3>In the form below, please enter the course codes you have already taken,
-  along with their grades, in a comma separted list.</h3>
+
+ <!--Create form for user to manually enter grades and data-->
+ <h2><u>The following functions are unavailable as of Iteration 1</u></h2>
+<h4>In the form below, please enter the course codes you have already taken,
+  along with their grades, in a comma separted list.</h4>
 <p>Example: CMPT120 A, MACM101 B+, CMPT276 F</p>
   
-<form action ="coursemapper/accounts/user_input.txt" method="post">
+<form action ="coursemapper/accounts/dummy_input" method="post">
   <textarea name= "user_inp" id = "user_inp" rows = "20" cols= "100">
  </textarea>
   <input type="submit" value =Done!>
 </form>
 
 <!---Create a button to direct user to submit academic trasnscript-->
-<h3>Instead, you can also choose to upload your academic transcript</h3>
-<h3>We will not store your information.</h3>
+<h3>Option 2: Upload your advising transcript PDF for processing</h3>
+<h5>Transcript files are deleted after processing. Information stored is held securely and will be destroyed upon request. See our privacy policy for more details. [To be added]</h5>
 <button type="button">Submit academic transcript</button>
 
 

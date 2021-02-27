@@ -8,3 +8,4 @@
 [4] https://docs.djangoproject.com/en/3.1/intro/tutorial04/
 [5] https://www.w3schools.com/html/html_headings.asp
 [6] https://www.w3schools.com/tags/tag_br.asp
+[7] https://learndjango.com/tutorials/django-login-and-logout-tutorial
