@@ -9,7 +9,7 @@
  <h1> Hi {{ user.username|safe }}! Welcome to CourseMapper </h1>
  <ul>
   <li>Tree Diagram</li>
-  <li>Directions Mode</li>
+  <li><a href="{% url 'prereqs' %}">Directions Mode</a></li>
   <li><a href="{% url 'logout' %}">Log Out</a></li>
  </ul>
  <!--Create form for user to man ually enter grades and data-->
