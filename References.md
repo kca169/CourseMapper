@@ -6,3 +6,5 @@
 [2] https://www.toptal.com/developers/gitignore/api/django,python
 [3] https://docs.djangoproject.com/en/3.1/intro/tutorial03/
 [4] https://docs.djangoproject.com/en/3.1/intro/tutorial04/
+[5] https://www.w3schools.com/html/html_headings.asp
+[6] 
