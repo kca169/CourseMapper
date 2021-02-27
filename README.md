@@ -1,4 +1,4 @@
-# Installation instructions
+# Installation Instructions
 
 ## Dependencies
 
@@ -9,14 +9,15 @@
 
 ## Clone the repository
 On a UNIX-style system (macOS and Linux), the command to clone the git repository should take the following form (assuming HTTPS is to be used)
+
 `$ git clone https://csil-git1.cs.surrey.sfu.ca/bvhall/coursemapper.git`
 
 ## Running CourseMapper
-Within the root (highest) level of the local repository cloned previously, run the following command.
+Within the root (highest) level of the local repository cloned previously, run the following command:
 
-`$ python manage.py runserver `
+`$ python manage.py runserver`
 
-This will start a local web-server that will allow you to test CourseMapper. Assuming you are running a standard networking configuration, entering the address
+This will start a local web-server that will allow you to test CourseMapper. Assuming you are running a standard networking configuration, entering the address:
 
 `127.0.0.1:8000`
 
