@@ -7,7 +7,7 @@ from django.template import loader
 #from .forms import CourseForm
 import requests
 
-#import json
+import json
 
 
 #This function GET's from the provided url, turns the resuld into JSON then loads and renders directions.html
@@ -16,6 +16,7 @@ import requests
 
 def prereqs(request):
     
+    ##defines a dictionary to hold the courses we GET from the SFU API
     # all_courses={}
      
     ## getting form data, convert all to lower-case as that is how the API serves the data.
@@ -26,7 +27,7 @@ def prereqs(request):
     
     # DEBUG
     # '''print(dep)
-    # print(num)
+    #print(num)
     # print(year)
     # print(semester)'''
 
@@ -35,12 +36,17 @@ def prereqs(request):
     url = requests.get(url)
     courses = url.json()
     
-    ## Convert the json file from above to a string then load the string and store in a variable called data so we can loop through
-    # courses_str = json.dumps(courses)
-    # data = json.loads(courses_str)
+    ## Convert the json 'courses' to a string then convert the string to a Python dictionary called data
+    courses_str = json.dumps(courses)
+    data = json.loads(courses_str)
 
+    ##Debug
+    # print("Title: " + data['title'])
+    # print(data['prerequisites'])
     
-    ##loop through our list of courses (which is now a string) and assign the parameters to fields from the Course model
+
+
+    ##loop through our dictionary of courses and assign the parameters to fields from the Course model
     # for i in data:
     #         course_data = Course(
     #         title=i['title'],
@@ -49,11 +55,12 @@ def prereqs(request):
     #         prerequisites=i['prerequisites'],
     #         units=i['units']
     #     )
-    #         #Save the data to our Course model database
-    #         course_data.save()
+            #Save the data to our Course model database
+    #        course_data.save()
     #         all_courses = Course.objects.all()
     
-    
+    ##Debug
+    # course_data.all().values()
     template = loader.get_template('sfu_academic_api_parser/directions.html')
     context = {'courses':courses,}
 
