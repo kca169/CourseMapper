@@ -35,12 +35,12 @@ def prereqs(request):
     url = requests.get(url)
     courses = url.json()
     
-    ## Convert the response from above to a string then load the string and store in a variable called data
+    ## Convert the json file from above to a string then load the string and store in a variable called data so we can loop through
     # courses_str = json.dumps(courses)
     # data = json.loads(courses_str)
 
     
-    ##loop through our list of courses obtained above and assign the parameters as fields from the Course model
+    ##loop through our list of courses (which is now a string) and assign the parameters to fields from the Course model
     # for i in data:
     #         course_data = Course(
     #         title=i['title'],
@@ -49,6 +49,7 @@ def prereqs(request):
     #         prerequisites=i['prerequisites'],
     #         units=i['units']
     #     )
+    #         #Save the data to our Course model database
     #         course_data.save()
     #         all_courses = Course.objects.all()
     
