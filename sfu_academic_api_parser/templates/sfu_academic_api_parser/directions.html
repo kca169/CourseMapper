@@ -40,10 +40,13 @@
     <input type="submit" value="Submit">
     
 </form>
-<b>Title:       {{courses.title}}</b> <br><br>
+{% comment %} This for loop is for when we are able to store the parsed api data in our database {% endcomment %}
+{% comment %} {% for courses in all_courses %} {% endcomment %}
+ <b>Title:       {{courses.title}}</b> <br><br>
 Description:    {{courses.description}} <br><br>
 Prerequisites: {{courses.prerequisites}} <br><br>
-Units:          {{courses.units}} <br><br>
+Units:          {{courses.units}} <br><br> 
+{% comment %} {% endfor %} {% endcomment %}
  <ul>
     {% comment %} {%for courses in courses%}
         <li>{{courses.prerequisites}}</li>
