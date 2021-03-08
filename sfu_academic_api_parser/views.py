@@ -17,7 +17,7 @@ import json
 def prereqs(request):
     
     ##defines a dictionary to hold the courses we GET from the SFU API
-    # all_courses={}
+    all_courses={}
      
     ## getting form data, convert all to lower-case as that is how the API serves the data.
     year = request.POST.get('year', '').lower()
@@ -39,25 +39,21 @@ def prereqs(request):
     ## Convert the json 'courses' to a string then convert the string to a Python dictionary called data
     courses_str = json.dumps(courses)
     data = json.loads(courses_str)
-
+    
     ##Debug
     # print("Title: " + data['title'])
     # print(data['prerequisites'])
     
-
-
-    ##loop through our dictionary of courses and assign the parameters to fields from the Course model
-    # for i in data:
-    #         course_data = Course(
-    #         title=i['title'],
-    #         number_str=i['number'],
-    #         description=i['description'],
-    #         prerequisites=i['prerequisites'],
-    #         units=i['units']
-    #     )
-            #Save the data to our Course model database
-    #        course_data.save()
-    #         all_courses = Course.objects.all()
+    #create a Course object from the parsed Json file (aka the dict 'data')
+    course_data = Course(
+        title=courses['title'],
+        number_str=courses['number'],
+            description=courses['description'],
+            prerequisites=courses['prerequisites'],
+            units=courses['units']
+    )
+    course_data.save()
+    all_courses = Course.objects.all()
     
     ##Debug
     # course_data.all().values()
@@ -69,5 +65,5 @@ def prereqs(request):
     
     ## print(url.status_code) #debug
     ## print(url_raw)
-    return render(request, 'sfu_academic_api_parser/directions.html', context)
-    # return render(request, 'sfu_academic_api_parser/directions.html', {"all_courses":all_courses})
+    #return render(request, 'sfu_academic_api_parser/directions.html', context)
+    return render(request, 'sfu_academic_api_parser/directions.html', {"all_courses":all_courses})
