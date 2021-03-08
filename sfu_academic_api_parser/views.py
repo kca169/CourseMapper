@@ -6,9 +6,7 @@ from django.template import loader
 
 #from .forms import CourseForm
 import requests
-
 import json
-
 
 #This function GET's from the provided url, turns the resuld into JSON then loads and renders directions.html
 
@@ -16,10 +14,7 @@ import json
 
 def prereqs(request):
     
-    ##defines a dictionary to hold the courses we GET from the SFU API
-    all_courses={}
-     
-    ## getting form data, convert all to lower-case as that is how the API serves the data.
+    # getting form data, convert all to lower-case as that is how the API serves the data.
     year = request.POST.get('year', '').lower()
     semester = request.POST.get('semester', '').lower()
     dep = request.POST.get('department', '').lower()
@@ -36,34 +31,37 @@ def prereqs(request):
     url = requests.get(url)
     courses = url.json()
     
-    ## Convert the json 'courses' to a string then convert the string to a Python dictionary called data
-    courses_str = json.dumps(courses)
-    data = json.loads(courses_str)
     
-    ##Debug
-    # print("Title: " + data['title'])
-    # print(data['prerequisites'])
-    
+    courses_str = json.dumps(courses)   # Convert 'courses' to a JSON string 
+    data = json.loads(courses_str)      # Convert to a Python dictionary
+    # print(type(data))     #debug
+
+
+    #This function takes in a dict key and returns the value related to that key    
+    def get_value(key):
+        value = data[key]
+        return value 
     #create a Course object from the parsed Json file (aka the dict 'data')
     course_data = Course(
-        title=courses['title'],
-        number_str=courses['number'],
-            description=courses['description'],
-            prerequisites=courses['prerequisites'],
-            units=courses['units']
+        title=get_value("title"),
+        number_str=get_value("number"),
+        description=get_value("description"),
+        prerequisites=get_value("prerequisites"),
+        units=get_value("units"),
     )
-    course_data.save()
-    all_courses = Course.objects.all()
+    course_data.save()                        # Need to figure out how to chekc if a course already exists 
+    new_context = {'course_data':course_data} #This is the context for rendering to directions.html
     
-    ##Debug
-    # course_data.all().values()
+    #print(course_data.title)   #debug 
+
     template = loader.get_template('sfu_academic_api_parser/directions.html')
-    context = {'courses':courses,}
+    # context = {'courses':courses,}            # old context when directly scraping from API
 
     if url.status_code != 200: 
         raise Http404("Cannot find course")
     
     ## print(url.status_code) #debug
     ## print(url_raw)
-    #return render(request, 'sfu_academic_api_parser/directions.html', context)
-    return render(request, 'sfu_academic_api_parser/directions.html', {"all_courses":all_courses})
+    # return render(request, 'sfu_academic_api_parser/directions.html', context)    # previous return from when we directly scraped from API 
+    return render(request, 'sfu_academic_api_parser/directions.html', new_context)
+   

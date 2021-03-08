@@ -10,8 +10,9 @@ class Course(models.Model):
     description = models.CharField(max_length=1000, default="This is an example description")
     code = models.CharField(max_length=5, default="TEST") ## The (usually) four letter string that preceds the course number
     #number = models.IntegerField()
-    prerequisites = models.ForeignKey('self', null=True, on_delete=models.CASCADE) # Find alterative to CASCADE
-    units = models.IntegerField()
+    prerequisites = models.CharField(max_length=1000, default = "This is an example of a prerequisite")
+    #prerequisites = models.ForeignKey('self', null=True, on_delete=models.CASCADE) # Find alterative to CASCADE
+    units = models.CharField(max_length=10, default="0")
     def __str__(self):
         return self.number_str + self.description
     
