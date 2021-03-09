@@ -38,21 +38,30 @@ def prereqs(request):
 
 
     #This function takes in a dict key and returns the value related to that key    
-    def get_value(key):
-        value = data[key]
+    def get_value(a_key):
+        value = data[a_key]
         return value 
+    
+    # print(data) #debug
+
     #create a Course object from the parsed Json file (aka the dict 'data')
+    
+    # this solution is cursed, but it seems to work
+    # if the page has been initialized, and a field is blank, Django spits out an exception.
+    # to solve this, we set the fields to a string with a single space ' ' if the field is blank, and if it isn't blank, the value itself.
+    
     course_data = Course(
-        title=get_value("title"),
-        number_str=get_value("number"),
-        description=get_value("description"),
-        prerequisites=get_value("prerequisites"),
-        units=get_value("units"),
+        title=' ' if get_value("title") == '' else get_value("title"),
+        number_str=' ' if get_value("number") == '' else get_value("number"),
+        description=' ' if get_value("description") == '' else get_value("description"),
+        # prerequisites=get_value("prerequisites"), # this can't be done this way. Pre-reqs must be linked
+        units=' ' if get_value("units") == '' else get_value('units'),
     )
+
     course_data.save()                        # Need to figure out how to chekc if a course already exists 
     new_context = {'course_data':course_data} #This is the context for rendering to directions.html
     
-    #print(course_data.title)   #debug 
+    print(course_data.title)   #debug 
 
     template = loader.get_template('sfu_academic_api_parser/directions.html')
     # context = {'courses':courses,}            # old context when directly scraping from API
