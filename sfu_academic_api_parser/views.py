@@ -41,22 +41,26 @@ def prereqs(request):
     def get_value(a_key):
         value = data[a_key]
         return value 
-    
-    # print(data) #debug
 
+    # duplicate = False
     #create a Course object from the parsed Json file (aka the dict 'data')
-    
+
     # if the page has been initialized, and a field is blank, Django spits out an exception.
     # to solve this, we set the fields to a string with a single space ' ' if the field is blank, and if it isn't blank, the value itself.
-
+    # Also, will not save if duplicate
     if 'title' in data != '':
 
         course_data = Course(
             title=get_value("title"),
-            number_str=get_value("number"),
+            code=dep.upper(),
+            year=int(year),
+            semester=semester.capitalize(),
+            number_str=get_value("number"), # string number
+            number=int(get_value("number")), # real number
             description=get_value("description"),
             # prerequisites=get_value("prerequisites"), # this can't be done this way. Pre-reqs must be linked
-            units=get_value('units'),
+            units=int(get_value('units')),
+            signature=year + semester + get_value("title") + get_value("description") + get_value("number") + get_value("units")
         )
         
         course_data.save()                        # Need to figure out how to chekc if a course already exists 
