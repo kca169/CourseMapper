@@ -46,11 +46,10 @@ def prereqs(request):
 
     #create a Course object from the parsed Json file (aka the dict 'data')
     
-    # this solution is cursed, but it seems to work
     # if the page has been initialized, and a field is blank, Django spits out an exception.
     # to solve this, we set the fields to a string with a single space ' ' if the field is blank, and if it isn't blank, the value itself.
 
-    if 'title' in data is not '':
+    if 'title' in data != '':
 
         course_data = Course(
             title=get_value("title"),
@@ -69,7 +68,7 @@ def prereqs(request):
     
     # print(course_data.title)   #debug 
 
-    template = loader.get_template('sfu_academic_api_parser/directions.html')
+    template = loader.get_template('sfu_academic_api_parser/manual_input.html')
     # context = {'courses':courses,}            # old context when directly scraping from API
 
     if url.status_code != 200: 
@@ -78,5 +77,5 @@ def prereqs(request):
     ## print(url.status_code) #debug
     ## print(url_raw)
     # return render(request, 'sfu_academic_api_parser/directions.html', context)    # previous return from when we directly scraped from API 
-    return render(request, 'sfu_academic_api_parser/directions.html', new_context)
+    return render(request, 'sfu_academic_api_parser/manual_input.html', new_context)
    
