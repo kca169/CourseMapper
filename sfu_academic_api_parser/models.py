@@ -23,6 +23,8 @@ class Course(models.Model):
     
     units = models.IntegerField()
     grade = models.CharField(max_length=3, default="NI") # NI == not inputted
+    
+    
     def __str__(self):
         return self.number_str + self.description
     

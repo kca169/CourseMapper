@@ -12,6 +12,51 @@ import json
 
 # Refs: [3], [4]
 
+def search(request):
+
+    # getting form data
+    year = request.POST.get('year', '')
+    semester = request.POST.get('semester', '').capitalize()
+    course_code = request.POST.get('department', '').upper()
+    num = request.POST.get('course_number', '')
+    
+    # DEBUG
+    # '''print(dep)
+    #print(num)
+    # print(year)
+    # print(semester)'''
+
+
+    # To search for W courses, if the cast to int fails, we cut off the last letter and try again
+    if year != '':
+        try:
+            num_to_search = int(num)
+        except:
+            num_to_search = int(num[:-1])
+
+        year_to_search = int(year)
+        course_to_search = Course.objects.get(code=course_code, number=num_to_search, year=year_to_search, semester=semester)
+
+        # Load error page if not found!
+        if not course_to_search:
+            template = loader.get_template('sfu_academic_api_parser/error.html')
+            return render(request, 'sfu_academic_api_parser/error.html')
+
+        search_context = {'search_context':course_to_search}
+        
+        # Debug course search
+        # print(course_to_search)
+
+        template = loader.get_template('sfu_academic_api_parser/database_search.html')
+        # context = {'courses':courses,}            # old context when directly scraping from API
+
+        # return render(request, 'sfu_academic_api_parser/directions.html', context)    # previous return from when we directly scraped from API 
+    else:
+        # Default context for new initialization
+        search_context = {'search_context':Course()}
+    
+    return render(request, 'sfu_academic_api_parser/database_search.html', search_context)
+
 def prereqs(request):
     
     # getting form data, convert all to lower-case as that is how the API serves the data.
@@ -36,6 +81,7 @@ def prereqs(request):
     data = json.loads(courses_str)      # Convert to a Python dictionary
     # print(type(data))     #debug
 
+    
 
     #This function takes in a dict key and returns the value related to that key    
     def get_value(a_key):
@@ -50,13 +96,19 @@ def prereqs(request):
     # Also, will not save if duplicate
     if 'title' in data != '':
 
+        # To search for W courses, if the cast to int fails, we cut off the last letter and try again
+        try:
+            num_to_enter= int(num)
+        except:
+            num_to_enter = int(num[:-1])
+
         course_data = Course(
             title=get_value("title"),
             code=dep.upper(),
             year=int(year),
             semester=semester.capitalize(),
             number_str=get_value("number"), # string number
-            number=int(get_value("number")), # real number
+            number=num_to_enter, # real number
             description=get_value("description"),
             # prerequisites=get_value("prerequisites"), # this can't be done this way. Pre-reqs must be linked
             units=int(get_value('units')),
