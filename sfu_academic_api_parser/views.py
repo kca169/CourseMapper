@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
-from django.http import Http404
+from django.http import Http404, HttpResponseNotFound
 from .models import Course
 from django.template import loader 
 
@@ -35,12 +35,16 @@ def search(request):
             num_to_search = int(num[:-1])
 
         year_to_search = int(year)
-        course_to_search = Course.objects.get(code=course_code, number=num_to_search, year=year_to_search, semester=semester)
+
+        try:
+            course_to_search = Course.objects.get(code=course_code, number=num_to_search, year=year_to_search, semester=semester)
+        except:
+            return HttpResponseNotFound('<h1>Course not found</h1>')
 
         # Load error page if not found!
-        if not course_to_search:
-            template = loader.get_template('sfu_academic_api_parser/error.html')
-            return render(request, 'sfu_academic_api_parser/error.html')
+        # if not course_to_search:
+        #     template = loader.get_template('sfu_academic_api_parser/error.html')
+        #     return render(request, 'sfu_academic_api_parser/error.html')
 
         search_context = {'search_context':course_to_search}
         
@@ -58,7 +62,7 @@ def search(request):
     return render(request, 'sfu_academic_api_parser/database_search.html', search_context)
 
 def prereqs(request):
-    
+
     # getting form data, convert all to lower-case as that is how the API serves the data.
     year = request.POST.get('year', '').lower()
     semester = request.POST.get('semester', '').lower()
