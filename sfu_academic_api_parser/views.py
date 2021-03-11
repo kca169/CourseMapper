@@ -12,6 +12,49 @@ import json
 
 # Refs: [3], [4]
 
+def search(request):
+
+    # getting form data
+    year = request.POST.get('year', '')
+    semester = request.POST.get('semester', '').capitalize()
+    course_code = request.POST.get('department', '').upper()
+    num = request.POST.get('course_number', '')
+    
+    # DEBUG
+    # '''print(dep)
+    #print(num)
+    # print(year)
+    # print(semester)'''
+
+
+    # To search for W courses, if the cast to int fails, we cut off the last letter and try again
+    if year != '' and semester != '' and course_code != '' and num != '':
+        try:
+            num_to_search = int(num)
+        except:
+            num_to_search = int(num[:-1])
+
+        year_to_search = int(year)
+
+        try:
+            course_to_search = Course.objects.filter(code=course_code, number=num_to_search, year=year_to_search, semester=semester)
+        except:
+            # Load error page.
+            template = loader.get_template('sfu_academic_api_parser/error.html')
+            return render(request, 'sfu_academic_api_parser/error.html')
+
+        search_context = {'search_context':course_to_search}
+
+        template = loader.get_template('sfu_academic_api_parser/database_search.html')
+        # context = {'courses':courses,}            # old context when directly scraping from API
+
+        # return render(request, 'sfu_academic_api_parser/directions.html', context)    # previous return from when we directly scraped from API 
+        return render(request, 'sfu_academic_api_parser/database_search.html', search_context)
+    else:
+        # Default context for new initialization
+        search_context = {'search_context':Course()}
+        return render(request, 'sfu_academic_api_parser/database_search.html', search_context)
+
 def prereqs(request):
     
     # getting form data, convert all to lower-case as that is how the API serves the data.
