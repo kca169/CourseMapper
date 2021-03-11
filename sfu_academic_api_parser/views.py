@@ -135,3 +135,7 @@ def prereqs(request):
     # return render(request, 'sfu_academic_api_parser/directions.html', context)    # previous return from when we directly scraped from API 
     return render(request, 'sfu_academic_api_parser/manual_input.html', new_context)
    
+
+
+def directions(request):
+    return render(request, 'sfu_academic_api_parser/directions.html')

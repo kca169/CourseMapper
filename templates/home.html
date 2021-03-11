@@ -9,7 +9,7 @@
  <h1> Hi {{ user.username|safe }}! Welcome to CourseMapper </h1>
  <ul>
   <li>Tree Diagram (unavailable)</li>
-  <li>Directions Mode (unavailable)</li>
+  <li><a href="{% url 'directions' %}">Directions Mode</a></li>
   <li><a href="{% url 'prereqs' %}">Add course to database</a></li>
   <li><a href="{% url 'database_search' %}">Search database</a></li>
   <li><a href="{% url 'logout' %}">Log Out</a></li>
