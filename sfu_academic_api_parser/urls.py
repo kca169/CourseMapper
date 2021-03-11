@@ -2,13 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-<<<<<<< HEAD
-    # Three links. Index (not created), manual input and database_search
-    # path('', views.index, name='index'),
-    path('manual_input/', views.prereqs, name='prereqs'),
-    path('database_search/', views.search, name='database_search'),
-=======
-    path('', views.prereqs, name='prereqs'),
+    path('', views.prereqs, name='manual_input'),
     path('directions/', views.directions, name='directions'),
->>>>>>> master
+    path('database_search/', views.search, name='database_search'),
+    path('error/', views.search, name='error',),
 ]
