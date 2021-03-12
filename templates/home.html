@@ -7,10 +7,12 @@
 {%if user.is_authenticated%}
 
 <div class="home">
-  <img class='logo' src="{%static 'images/logo.png'%}" alt="logo" height="90" width="90"/>
-    <h1><u>Welcome to CourseMapper</u></h1>
+<h1 class='logo-title'>Course <img class='logo' src="{%static 'images/logo.png'%}" alt="logo" height="90" width="90" /> Mapper </h1>
+    {% comment %} <h1>Course</h1>
+    <img class='logo' src="{%static 'images/logo.png'%}" alt="logo" height="90" width="90" />
+    <h1>Mapper</h1> {% endcomment %}
     <!--Create form for user to manually enter grades and data-->
-    <div class="course_input">
+    <div class="option-1">
     <h3>
       Option 1: In the form below, please enter the course codes you have already taken,
       along with their grades, in a comma separated list.
@@ -18,7 +20,7 @@
     <p>Example: CMPT120 A, MACM101 B+, CMPT276 F</p>
 
   <form action="coursemapper/accounts/dummy_input" method="post">
-    <textarea class="user_input" name="user_inp" id="user_inp" rows="20" cols="100"> </textarea>
+    <input type="text" class="user_input" name="user_inp" id="user_inp" rows="20" cols="100"> </input>
     <input class="submit_button" type="submit" value="Done!" />
   </form>
   </div>

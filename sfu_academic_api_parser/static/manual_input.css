@@ -21,28 +21,36 @@
 }
 
 .user-input input:focus{
-    border-bottom: 3px solid;
+    /* border-bottom: 3px solid; */
+    outline: none;
+    border-color: #89b0ae;
+    box-shadow: 0 0 20 -20px #b5cfce;
 }
 
+.user-input input:hover{
+    outline: none;
+    border-color: #76b6b3;
+    box-shadow: 0 0 20px -20px #b5cfce;
+  }
 
-
-.submit-btn{
+.submit-btn {
     margin-left: 0;
-  padding: 0.5em 3em;
-  border: 0.15em solid #ffffff;
-  font-family: "Roboto", sans-serif;
-  font-weight: bold;
-  color: #353535;
-  text-transform: uppercase;
-  background-color: #89b0ae;
-  border-radius: 5px;
-}
-
-.submit-btn:hover {
+    padding: 0.5em 3em;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
     color: #353535;
-    border-color: #353535;
+    text-transform: uppercase;
+    border: 2px solid #89b0ae;
+    border-radius: 5px;
+  }
+  
+  .submit-btn:hover {
+    outline: none;
+    border-color: #89b0ae;
+    box-shadow: 0 0 10px #b5cfce;
   }
 
 .output{
     margin-top: 20px;
 }
+
