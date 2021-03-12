@@ -61,7 +61,7 @@ def search(request):
     
     return render(request, 'sfu_academic_api_parser/database_search.html', search_context)
 
-def prereqs(request):
+def manual_input(request):
 
     # getting form data, convert all to lower-case as that is how the API serves the data.
     year = request.POST.get('year', '').lower()
