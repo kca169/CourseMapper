@@ -5,24 +5,6 @@
 {% block title %}CourseMapper Home{% endblock %} 
 {%block content %} 
 {%if user.is_authenticated%}
-<div class="navigation">
-  <ul>
-    <li>Tree Diagram (unavailable)</li>
-    <li><a href="{% url 'directions' %}">Directions Mode</a></li>
-    <li class='logout'><a href="{% url 'logout' %}" style="font-size:17px;">Log Out <i class="fa fa-arrow-right"></i></a></li>
-    <li class="name">Hi {{ user.username|safe }}!</li>
-  </ul>
-</div>
-{% if user.is_superuser %}
-<div class="admin">
-  <button class='dropbtn'>Administrative options <i class="fa fa-bars"></i></button>
-  <!--Manual input and database search restricted to Superuser access only-->
-  <div class="admin-content">
-    <a href="{% url 'manual_input' %}">Add course to database</a>
-    <a href="{% url 'database_search' %}">Search database</a>
-  </div>
-</div>
-{%endif%}
 
 <div class="home">
   <img class='logo' src="{%static 'images/logo.png'%}" alt="logo" height="90" width="90"/>
@@ -41,6 +23,7 @@
   </form>
   </div>
   <!---Create a button to direct user to submit academic trasnscript-->
+  <div class='option-2'>
   <h3>Option 2: Upload your advising transcript PDF for processing</h3>
   <h5>
     Transcript files are deleted after processing. Information stored is held
@@ -50,6 +33,7 @@
   <button class="submit_button" type="button">
     Submit academic transcript
   </button>
+  </div>
 </div>
 
 {% else %}

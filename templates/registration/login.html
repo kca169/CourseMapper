@@ -6,7 +6,7 @@
     
 {% block content %}
 <h2 class ='login'>Log In</h2>
-<form method="post">
+<form class='login' method="post">
   {% csrf_token %}
    {{ form.non_field_errors }}
     <div class="form-group">
