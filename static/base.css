@@ -22,12 +22,11 @@ body{
 }
 
 .title {
-  /* background-color:rgba(16, 78, 107, 0.6); */
-  color: rgb(187, 186, 186);
+  color: rgb(211, 211, 211);
   text-align: center;
-  text-shadow: 1px 2px #000000;
+  text-shadow: 1px 3px #000000;
   font-size: 75px;
-  letter-spacing: 5px;
+  letter-spacing: 7px;
 }
 
 .description {
@@ -111,23 +110,32 @@ form {
   padding: 10px 12px;
   text-align: center;
   text-decoration: none;
-  font-size: 17px;
-  color: #6c757d;
+  font-size: 25px;
+  font-weight: 700;
+  color: #646b72;
   display: block;
   float: left;
+  background-color: #dbebea;
+  border-radius: 5px;
 }
 
 .navigation a:hover {
     background-color: #a3a3a3;
-    color: black;
-    border-radius: 10px;
+    color: rgb(90, 90, 90);
+    border-radius: 5px;
   }
 
+
+.logout{
+  float: right;
+  padding-top: 0;
+}
  .name{
-    font-size: larger;
+    font-size: 17px;;
+    font-weight: 700;
     float: right;
-    margin-right: 10px;
-    margin-top: 10px;
+    margin-top: 11px;
+    margin-right: 20px;
   }
 
 /* Admin panel */

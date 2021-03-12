@@ -9,13 +9,13 @@
   <ul>
     <li>Tree Diagram (unavailable)</li>
     <li><a href="{% url 'directions' %}">Directions Mode</a></li>
-    <li><a href="{% url 'logout' %}">Log Out</a></li>
+    <li class='logout'><a href="{% url 'logout' %}" style="font-size:17px;">Log Out <i class="fa fa-arrow-right"></i></a></li>
     <li class="name">Hi {{ user.username|safe }}!</li>
   </ul>
 </div>
 {% if user.is_superuser %}
 <div class="admin">
-  <button class='dropbtn'>Administrative options <i class="fa fa-caret-down"></i></button>
+  <button class='dropbtn'>Administrative options <i class="fa fa-bars"></i></button>
   <!--Manual input and database search restricted to Superuser access only-->
   <div class="admin-content">
     <a href="{% url 'manual_input' %}">Add course to database</a>
