@@ -8,7 +8,7 @@
 {% if user.is_authenticated %}
  <h1> Hi {{ user.username|safe }}! Welcome to CourseMapper </h1>
  <ul>
-  <li>Tree Diagram (unavailable)</li>
+  <li><a href="{% url 'treemode' %}">Tree Diagram (in progress)</a></li>
   <li>Directions Mode (unavailable)</li>
   <li><a href="{% url 'prereqs' %}">Course Lookup</a></li>
   <li><a href="{% url 'logout' %}">Log Out</a></li>

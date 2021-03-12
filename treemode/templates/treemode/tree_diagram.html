@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block title %}CourseMapper{% endblock %}
@@ -6,10 +7,10 @@
 
 <!-- Refs: [5], [6] -->
 
-<h1>Manual Course Entry</h1>
-<h3>Use this tool to search the Course REST API and store the course into the database.</h3>
+<h1>Tree Diagram</h1>
+<h3>Use this tool to search the Course REST API and store the course into the database, and then draws a diagram.</h3>
 <h5>Note: "course code" refers to the set of letters before a course number, examples: "CMPT", "MACM", "PHYS".</h5>
-<form action="/sfu_academic_api_parser/" method="post">
+<form action="/treemode/" method="post">
     {% csrf_token %}
     <!-- {{ forms }} -->
     
@@ -41,15 +42,13 @@
     
 </form>
 
- <b>Title:       {{course_data.title}}</b> <br><br>
-Description:    {{course_data.description}} <br><br>
-Prerequisites: {{course_data.prerequisites}} <br><br>
-PrereqArray: {{course_data.prereqArray}} <br><br>
-Units:          {{course_data.units}} <br><br> 
+ <b>Title:       {{course_data.name}}</b> <br><br>
+Prerequisites: {{course_data.prerequisite}} <br><br>
+PrereqArray: {{course_data.prereqList}}<br><br>
 
  <ul>
     {% comment %} {%for courses in courses%}
-        <li>{{courses.prerequisites}}</li>
+        <li>{{courses.prerequisite}}</li>
         {%endfor%} {% endcomment %}
 </ul>
 {% endblock %}

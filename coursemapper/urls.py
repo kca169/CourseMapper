@@ -27,5 +27,7 @@ urlpatterns = [
         path('accounts/', include('accounts.urls')), #from django signup tutorial.
         path('accounts/', include('django.contrib.auth.urls')),
         path('sfu_academic_api_parser/', include('sfu_academic_api_parser.urls')),
+        path('treemode/', include('treemode.urls')),
+
         path('', TemplateView.as_view(template_name='home.html'), name='home'),
 ]

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',  #from django tutorial on signup
     'sfu_academic_api_parser.apps.SfuAcademicApiParserConfig',
+    'treemode.apps.treemodeConfig'
 ]
 
 MIDDLEWARE = [
