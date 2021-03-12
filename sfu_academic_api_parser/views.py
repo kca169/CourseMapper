@@ -132,7 +132,8 @@ def manual_input(request):
     # context = {'courses':courses,}            # old context when directly scraping from API
 
     if url.status_code != 200: 
-        raise Http404("Cannot find course")
+        # raise Http404("Cannot find course")
+        return HttpResponseNotFound('<h1>Course not found</h1>')
     
     ## print(url.status_code) #debug
     ## print(url_raw)
