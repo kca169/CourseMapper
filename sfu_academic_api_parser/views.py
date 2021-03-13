@@ -124,7 +124,7 @@ def manual_input(request):
 
     else:
         new_context = {'data':data}
-
+    
     
     # print(course_data.title)   #debug 
 

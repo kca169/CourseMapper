@@ -3,6 +3,7 @@ from django.db import models
 # Refs: [8]
 
 # Basic course model.
+# Signature for this course MUST be generated after instantiation using the gen_signature() method!
 class Course(models.Model):
 
     title = models.CharField(max_length = 50, default='This is an example title')
@@ -24,8 +25,12 @@ class Course(models.Model):
     units = models.IntegerField()
     grade = models.CharField(max_length=3, default="NI") # NI == not inputted
     
+    # This solution is utter garbage, but it will have to do until I can find a better way.
+    def gen_signature(self):
+        return str(self.year) + self.semester + self.code + self.title + self.description + str(self.number) + str(self.units)
     
     def __str__(self):
         return self.number_str + self.description
     
     pass
+
