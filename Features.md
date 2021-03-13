@@ -12,6 +12,10 @@
 
 - Once logged in, users can click on the “directions mode” tab where they can search for a course and have the prerequisites for that course displayed 
 
+#### SFU Academic API Parser - Tree Diagram (Currently in list display form)
+
+- Once logged in, users will be able to click the “Tree” tab where they can search for a course and have the courses' prerequisites and it's dependencies recursively displayed in a list
+
 ### Features Planned for Future Iterations
 
 #### SFU Academic API Parser - Tree Diagram 
