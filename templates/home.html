@@ -1,7 +1,12 @@
 <!-- templates/home.html -->
 <!-- Refs: [7]-->
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}CourseMapper Home{% endblock %} 
+{%block content %} 
+{%if user.is_authenticated%}
 
+<<<<<<< HEAD
 {% block title %}CourseMapper Home{% endblock %}
 
 {% block content %}
@@ -30,15 +35,53 @@
 <h3>Option 2: Upload your advising transcript PDF for processing</h3>
 <h5>Transcript files are deleted after processing. Information stored is held securely and will be destroyed upon request. See our privacy policy for more details. [To be added]</h5>
 <button type="button">Submit academic transcript</button>
+=======
+<div class="home">
+<h1 class='logo-title'>Course <img class='logo' src="{%static 'images/logo.png'%}" alt="logo" height="90" width="90" /> Mapper </h1>
+    {% comment %} <h1>Course</h1>
+    <img class='logo' src="{%static 'images/logo.png'%}" alt="logo" height="90" width="90" />
+    <h1>Mapper</h1> {% endcomment %}
+    <!--Create form for user to manually enter grades and data-->
+    <div class="option-1">
+    <h3>
+      Option 1: In the form below, please enter the course codes you have already taken,
+      along with their grades, in a comma separated list.
+    </h3>
+    <p>Example: CMPT120 A, MACM101 B+, CMPT276 F</p>
+>>>>>>> master
 
+  <form action="coursemapper/accounts/dummy_input" method="post">
+    <input type="text" class="user_input" name="user_inp" id="user_inp" rows="20" cols="100"> </input>
+    <input class="submit_button" type="submit" value="Done!" />
+  </form>
+  </div>
+  <!---Create a button to direct user to submit academic trasnscript-->
+  <div class='option-2'>
+  <h3>Option 2: Upload your advising transcript PDF for processing</h3>
+  <h5>
+    Transcript files are deleted after processing. Information stored is held
+    securely and will be destroyed upon request. See our privacy policy for more
+    details. [To be added]
+  </h5>
+  <button class="submit_button" type="button">
+    Submit academic transcript
+  </button>
+  </div>
+</div>
 
 {% else %}
-  <h1 class='title'>CourseMapper</h1>
-  <h2 class='description'>A tool for SFU students to visualize and plan their degree</h2>
-  <div>
-  <p class='redirect'>You are not logged in. Login <a href="{% url 'login' %}">here</a></p>
-  <p class='redirect'> Don't have an account? Register <a href="{% url 'signup' %}">here</a> </p>
-  </div>
-{% endif %}
+<img class='logo' src="{%static 'images/logo.png'%}" alt="logo" height="200" width="200"/>
+<h1 class="title">CourseMapper</h1>
+<h2 class="description">
+  A tool for SFU students to visualize and plan their degree
+</h2>
+<div>
+  <p class="redirect">
+    You are not logged in. Login <a href="{% url 'login' %}">here</a>
+  </p>
+  <p class="redirect">
+    Don't have an account? Register <a href="{% url 'signup' %}">here</a>
+  </p>
+</div>
+{% endif %} 
 {% endblock %}
- 
