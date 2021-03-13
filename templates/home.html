@@ -31,7 +31,7 @@
   along with their grades, in a comma separted list.</h4>
 <p>Example: CMPT120 A, MACM101 B+, CMPT276 F</p>
   
-<form action ="coursemapper/accounts/dummy_input" method="post">
+<form action ="/sfu_academic_api_parser/directions/" method="post">
   <textarea name= "user_inp" id = "user_inp" rows = "20" cols= "100">
  </textarea>
   <input type="submit" value =Done!>
@@ -40,7 +40,12 @@
 <!---Create a button to direct user to submit academic trasnscript-->
 <h3>Option 2: Upload your advising transcript PDF for processing</h3>
 <h5>Transcript files are deleted after processing. Information stored is held securely and will be destroyed upon request. See our privacy policy for more details. [To be added]</h5>
-<button type="button">Submit academic transcript</button>
+
+<form action ="/sfu_academic_api_parser/directions/" method="post" accept =".pdf">
+  <label for="file">Submit Academic Transcript</label>
+  <input type="file" id="transcript" name="transcript" readonly>
+  <input type="submit" value="Confirm">
+</form>
 
 
 {% else %}

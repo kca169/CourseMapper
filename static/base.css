@@ -1,11 +1,11 @@
 body{
-    background-color:#e5e2e2 ;
+    background-color:#eca7a7 ;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .title{
     /* background-color:rgba(16, 78, 107, 0.6); */
-    color: #ffffff;
+    color: #eca7a7;
     text-align: center;
     text-shadow: 1px 3px #000000;
     font-size: 75px;
