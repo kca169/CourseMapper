@@ -68,7 +68,7 @@ class rest_api_test(TestCase):
     
 
     def test_init(self):
-        ''' Testing inserting courses into the REST API, and then cross referencing them after the fact. We pull from CMPT and PHYS, for Spring 2021, up to 200 level courses'''
+        ''' Testing inserting courses into the REST API, and then cross referencing them after. We pull from CMPT and PHYS, for Spring 2021, up to 200 level courses'''
         # Initial values
         departments = ['cmpt', 'phys']
         semesters = ['spring']
