@@ -21,7 +21,7 @@
     </h3>
     <p>Example: CMPT120 A, MACM101 B+, CMPT276 F</p>
 
-  <form action="coursemapper/accounts/dummy_input" method="post">
+  <form action="/sfu_academic_api_parser/directions/" method="post">
     <input type="text" class="user_input" name="user_inp" id="user_inp" rows="20" cols="100"> </input>
     <input class="submit_button" type="submit" value="Done!" />
   </form>
@@ -34,9 +34,11 @@
     securely and will be destroyed upon request. See our privacy policy for more
     details. [To be added]
   </h5>
-  <button class="submit_button" type="button">
-    Submit academic transcript
-  </button>
+  <form action ="/sfu_academic_api_parser/directions/" method="post" accept =".pdf">
+    <label for="file">Submit Academic Transcript</label>
+    <input type="file" id="transcript" name="transcript" readonly>
+    <input type="submit" value="Confirm">
+  </form>
   </div>
 </div>
 
