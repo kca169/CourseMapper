@@ -12,6 +12,11 @@ On a UNIX-style system (macOS and Linux), the command to clone the git repositor
 
 `$ git clone https://csil-git1.cs.surrey.sfu.ca/bvhall/coursemapper.git`
 
+## Making migrations
+Within the root (highest) level of the local repository cloned previously, run the following command:
+
+`$ python manage.py makemigrations && python manage.py migrate`
+
 ## Running CourseMapper
 Within the root (highest) level of the local repository cloned previously, run the following command:
 
