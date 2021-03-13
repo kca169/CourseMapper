@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Manual Input{% endblock %}
+{%load static%}
+{% block title %}Search Database{% endblock %}
 
 {% block content %}
 
 <!-- Refs: [5], [6] -->
 <div class='body'>
-<h1>Manual Course Entry</h1>
-<h3>Use this tool to import courses from the REST API to the CourseMapper Database.</h3>
+<h1>Search Database</h1>
+<h3>Use this tool to search the CourseMapper Database.</h3>
 <h5>Note: "course code" refers to the set of letters before a course number, examples: "CMPT", "MACM", "PHYS".</h5>
-<form class='search_form' action="/sfu_academic_api_parser/manual_input/" method="post">
+<form class="search_form" action="/sfu_academic_api_parser/database_search/" method="post">
     {% csrf_token %}
     <!-- {{ forms }} -->
-<div class='user-input'>
+    
+    <div class='user-input'>
     
     <input placeholder="Year" id="department" type="text" name="year" maxlength="100" required>
     <br>
@@ -34,16 +34,11 @@
 
 <div class="output">
 
- <b>Title:       {{course_data.title}}</b> <br><br>
-Description:   {{course_data.description}} <br><br>
-Prerequisites: {{course_data.prerequisites}} <br><br>
-<<<<<<< HEAD
-PrereqArray: {{course_data.prereqArray}} <br><br>
-Units:          {{course_data.units}} <br><br> 
-=======
-Units:     {{course_data.units}} <br><br> 
+ <b>Title:       {{search_context.title}}</b> <br><br>
+Description:    {{search_context.description}} <br><br>
+Prerequisites: {{search_context.prerequisites}} <br><br>
+Units:          {{search_context.units}} <br><br> 
 </div>
->>>>>>> master
 
 </div>
 {% endblock %}

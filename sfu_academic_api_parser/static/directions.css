@@ -1,0 +1,10 @@
+.directions-body{
+    background-image: url('images/lecture-hall.jpg');
+    background-size: cover;
+}
+
+.directions-title{
+    background-color: white;
+    margin-top: 5rem;
+    padding: 30px;
+}
