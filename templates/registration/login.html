@@ -1,11 +1,12 @@
 <!-- templates/registration/login.html -->
 <!-- Refs: [7]-->
 {% extends 'base.html' %}
+
 {% block title %}CourseMapper Login{% endblock %}
     
 {% block content %}
-<h2 class='reg-title'>Log In</h2>
-<form class="reg-body" method="post">
+<h2 class ='login'>Log In</h2>
+<form method="post">
   {% csrf_token %}
    {{ form.non_field_errors }}
     <div class="form-group">
@@ -14,6 +15,7 @@
         {{ form.username }}
         {{ form.username.errors }}
 
+    </div>
     <div class="form-group">
 
         <label for="{{ form.password.id_for_label }}">Password:</label>
@@ -22,5 +24,4 @@
     </div>
     <button type="submit">Login</button>
 </form>
-
 {% endblock %}

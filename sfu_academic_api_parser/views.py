@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
-from django.http import Http404, HttpResponseNotFound
+from django.http import Http404
 from .models import Course
 from django.template import loader 
 
@@ -12,57 +12,8 @@ import json
 
 # Refs: [3], [4]
 
-def search(request):
-
-    # getting form data
-    year = request.POST.get('year', '')
-    semester = request.POST.get('semester', '').capitalize()
-    course_code = request.POST.get('department', '').upper()
-    num = request.POST.get('course_number', '')
+def prereqs(request):
     
-    # DEBUG
-    # '''print(dep)
-    #print(num)
-    # print(year)
-    # print(semester)'''
-
-
-    # To search for W courses, if the cast to int fails, we cut off the last letter and try again
-    if year != '':
-        try:
-            num_to_search = int(num)
-        except:
-            num_to_search = int(num[:-1])
-
-        year_to_search = int(year)
-
-        try:
-            course_to_search = Course.objects.get(code=course_code, number=num_to_search, year=year_to_search, semester=semester)
-        except:
-            return HttpResponseNotFound('<h1>Course not found</h1>')
-
-        # Load error page if not found!
-        # if not course_to_search:
-        #     template = loader.get_template('sfu_academic_api_parser/error.html')
-        #     return render(request, 'sfu_academic_api_parser/error.html')
-
-        search_context = {'search_context':course_to_search}
-        
-        # Debug course search
-        # print(course_to_search)
-
-        template = loader.get_template('sfu_academic_api_parser/database_search.html')
-        # context = {'courses':courses,}            # old context when directly scraping from API
-
-        # return render(request, 'sfu_academic_api_parser/directions.html', context)    # previous return from when we directly scraped from API 
-    else:
-        # Default context for new initialization
-        search_context = {'search_context':Course()}
-    
-    return render(request, 'sfu_academic_api_parser/database_search.html', search_context)
-
-def manual_input(request):
-
     # getting form data, convert all to lower-case as that is how the API serves the data.
     year = request.POST.get('year', '').lower()
     semester = request.POST.get('semester', '').lower()
@@ -85,14 +36,14 @@ def manual_input(request):
     data = json.loads(courses_str)      # Convert to a Python dictionary
     # print(type(data))     #debug
 
-    
 
     #This function takes in a dict key and returns the value related to that key    
     def get_value(a_key):
         value = data[a_key]
         return value 
+    
+    # print(data) #debug
 
-<<<<<<< HEAD
     #this function identify_prereqs() gets rid of the filler in prerequisites and returns only the prereq codes as a string
     def identify_prereqs(preq):
         coursecodes_list = ['CMPT', 'MATH', 'MACM', 'ENSC']
@@ -131,39 +82,20 @@ def manual_input(request):
         return
 
 
-=======
-    # duplicate = False
->>>>>>> master
     #create a Course object from the parsed Json file (aka the dict 'data')
-
+    
     # if the page has been initialized, and a field is blank, Django spits out an exception.
     # to solve this, we set the fields to a string with a single space ' ' if the field is blank, and if it isn't blank, the value itself.
-    # Also, will not save if duplicate
-    if 'title' in data != '':
 
-        # To search for W courses, if the cast to int fails, we cut off the last letter and try again
-        try:
-            num_to_enter= int(num)
-        except:
-            num_to_enter = int(num[:-1])
+    if 'title' in data != '':
 
         course_data = Course(
             title=get_value("title"),
-            code=dep.upper(),
-            year=int(year),
-            semester=semester.capitalize(),
-            number_str=get_value("number"), # string number
-            number=num_to_enter, # real number
+            number_str=get_value("number"),
             description=get_value("description"),
-<<<<<<< HEAD
             prerequisites=get_value("prerequisites"), # this can't be done this way. Pre-reqs must be linked
             prereqArray=identify_prereqs(get_value("prerequisites")),
             units=get_value('units'),
-=======
-            # prerequisites=get_value("prerequisites"), # this can't be done this way. Pre-reqs must be linked
-            units=int(get_value('units')),
-            signature=year + semester + get_value("title") + get_value("description") + get_value("number") + get_value("units")
->>>>>>> master
         )
         
         course_data.save()                        # Need to figure out how to chekc if a course already exists 
@@ -171,7 +103,7 @@ def manual_input(request):
 
     else:
         new_context = {'data':data}
-    
+
     
     # print(course_data.title)   #debug 
 
@@ -179,15 +111,10 @@ def manual_input(request):
     # context = {'courses':courses,}            # old context when directly scraping from API
 
     if url.status_code != 200: 
-        # raise Http404("Cannot find course")
-        return HttpResponseNotFound('<h1>Course not found</h1>')
+        raise Http404("Cannot find course")
     
     ## print(url.status_code) #debug
     ## print(url_raw)
     # return render(request, 'sfu_academic_api_parser/directions.html', context)    # previous return from when we directly scraped from API 
     return render(request, 'sfu_academic_api_parser/manual_input.html', new_context)
    
-
-
-def directions(request):
-    return render(request, 'sfu_academic_api_parser/directions.html')
