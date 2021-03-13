@@ -2,18 +2,44 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>{% block title %} CourseMapper Test {% endblock %}</title>
-		{% load static %}
-		<link rel="stylesheet" href="{% static 'base.css' %}">
-	</head>
+  <head>
+    <meta charset="utf-8" />
 
-	<body>
-		<main>
-			{% block content %}
-			{% endblock %}
-		</main>
-	</body>
+    <title>{% block title %} CourseMapper Test {% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'base.css' %}" />
+    <link rel="stylesheet" href="{% static 'manual_input.css' %}" />
+    <link rel="stylesheet" href="{% static 'directions.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+
+  <body>
+    <main>
+      {%if user.is_authenticated%}
+        <div class="navigation">
+        <ul>
+          <li><a href="{%url 'home' %}"> <i class="fa fa-home"></i></a></li>
+          <li><a href="{% url 'treemode' %}">Tree Mode</a></li>
+          <li><a href="{% url 'directions' %}">Directions Mode</a></li>
+          <li class='logout'><a href="{% url 'logout' %}" style="font-size:17px;">Log Out <i class="fa fa-arrow-right"></i></a></li>
+          <li class="name">Hi {{ user.username|safe }}!</li>
+        </ul>
+        </div>
+    {%endif%}
+
+    {% if user.is_superuser %}
+<div class="admin">
+  <button class='dropbtn'>Administrative options <i class="fa fa-bars"></i></button>
+  <!--Manual input and database search restricted to Superuser access only-->
+  <div class="admin-content">
+    <a href="{% url 'manual_input' %}">Add course to database</a>
+    <a href="{% url 'database_search' %}">Search database</a>
+  </div>
+</div>
+{%endif%} 
+
+    {% block content %} 
+	  {%endblock%}
+    </main>
+  </body>
 </html>
-

@@ -1,0 +1,54 @@
+
+{% extends 'base.html' %}
+
+{% block title %}CourseMapper{% endblock %}
+
+{% block content %}
+
+<!-- Refs: [5], [6] -->
+
+<h1>Tree Diagram</h1>
+<h3>Use this tool to search the Course REST API and store the course into the database, and then draws a diagram.</h3>
+<h5>Note: "course code" refers to the set of letters before a course number, examples: "CMPT", "MACM", "PHYS".</h5>
+<form action="/treemode/" method="post">
+    {% csrf_token %}
+    <!-- {{ forms }} -->
+    
+    <label for="department">Year: </label>
+    <input id="department" type="text" name="year" maxlength="100" required>
+    
+    <br>
+    <br>
+
+    <label for="course_number">Semester: </label>
+    <input id="course_number" type="text" name="semester" maxlength="100" required>
+
+    <br>
+    <br>
+
+    <label for="department">Course Code: </label>
+    <input id="department" type="text" name="department" maxlength="100" required>
+
+    <br>
+    <br>
+
+    <label for="course_number">Course Number: </label>
+    <input id="course_number" type="text" name="course_number" maxlength="100" required>
+    
+    <br>
+    <br>
+
+    <input type="submit" value="Submit">
+    
+</form>
+
+ <b>Title:       {{course_data.name}}</b> <br><br>
+Prerequisites: {{course_data.prerequisite}} <br><br>
+PrereqArray: {{course_data.prereqList}}<br><br>
+
+ <ul>
+    {% comment %} {%for courses in courses%}
+        <li>{{courses.prerequisite}}</li>
+        {%endfor%} {% endcomment %}
+</ul>
+{% endblock %}

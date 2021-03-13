@@ -92,7 +92,44 @@ def manual_input(request):
         value = data[a_key]
         return value 
 
-    # duplicate = False
+    #this function identify_prereqs() gets rid of the filler in prerequisites and returns only the prereq codes as a string
+    def identify_prereqs(preq):
+        coursecodes_list = ['CMPT', 'MATH', 'MACM', 'ENSC']
+        bad_chars = ['(', ')',',','.',':',';']
+        result_list = list()
+        prereq_list = list()
+        index = 0
+
+        HScourselist = ['Pre-Calculus', 'BC Math 12']
+
+        preq = ''.join(i for i in preq if not i in bad_chars)
+        prereq_list = preq.split()
+
+        for bad in HScourselist:
+            if bad in preq:
+                return result_list
+
+        for words in prereq_list:
+            if words in coursecodes_list:
+                #print("The position of " + words + " word: ", index)
+                result_list.append(words + " " + prereq_list[index+1])
+            index +=1
+
+        index = 0        
+        for i in range(len(prereq_list)-1):
+            if 'and' in prereq_list[i]:
+                #print("Index of 'and' is " + str(i) )
+                if prereq_list[i+1].isdigit():
+                    result_list.append(prereq_list[i-2] + " " + prereq_list[i+1])
+        #print (result_list)
+        return result_list
+
+    def recursive_list(prereq_list):
+        #for i in range(len(prereq_list)):
+
+        return
+
+
     #create a Course object from the parsed Json file (aka the dict 'data')
 
     # if the page has been initialized, and a field is blank, Django spits out an exception.
@@ -114,6 +151,7 @@ def manual_input(request):
             number_str=get_value("number"), # string number
             number=num_to_enter, # real number
             description=get_value("description"),
+            prereqArray=identify_prereqs(get_value("prerequisites")),
             # prerequisites=get_value("prerequisites"), # this can't be done this way. Pre-reqs must be linked
             units=int(get_value('units')),
             signature=year + semester + get_value("title") + get_value("description") + get_value("number") + get_value("units")
@@ -124,7 +162,7 @@ def manual_input(request):
 
     else:
         new_context = {'data':data}
-
+    
     
     # print(course_data.title)   #debug 
 
@@ -132,7 +170,8 @@ def manual_input(request):
     # context = {'courses':courses,}            # old context when directly scraping from API
 
     if url.status_code != 200: 
-        raise Http404("Cannot find course")
+        # raise Http404("Cannot find course")
+        return HttpResponseNotFound('<h1>Course not found</h1>')
     
     ## print(url.status_code) #debug
     ## print(url_raw)
