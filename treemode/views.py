@@ -61,6 +61,7 @@ def treemode(request):
             return result_list  #return empty result list
 
         if (preq == 'empty') :      #if the prerequisites are an empty string
+            #print('in this case of preq == empty!')
             result_list.append('empty')
             return result_list  #return empty result list
              
@@ -89,18 +90,20 @@ def treemode(request):
 
     def recursive_list(prereq_list, result_list):
 
-        if "empty" in prereq_list: #when the list of prereqs is empty
+        if 'empty' in prereq_list or '' in prereq_list: #when the list of prereqs is empty
+            if len(result_list)==0:     #when result list is empty and prereq list is empty ~ meaning there are 0 prerequisites for the tree root
+                result_list.append('No Prerequisites For This Course')
+                return result_list
             return 
 
         for i in range(len(prereq_list)): # Moving through the array of courses
-            print( i)
             temp_list = list() #creates empty list
             temp_list = prereq_list[i].split() #splits coursecode + number into 2 parts
             search_list = list() #creates a list of courses to search for recursively
             dep = temp_list[0].lower() #takes the lowercase course code
             num = temp_list[1].lower()  #takes the course num
 
-            print('for course: ' + dep + num)    #THIS LINE is for debugging      
+            #print('for course: ' + dep + num)    #THIS LINE is for debugging      
             #####
             url = f'http://www.sfu.ca/bin/wcm/academic-calendar?{year}/{semester}/courses/{dep}/{num}' # changed to formatted string
             url_raw = url
@@ -122,10 +125,10 @@ def treemode(request):
             if (dep.upper()+' '+num.upper()) in search_list:
                 search_list.remove(dep.upper()+' '+num.upper())
 
-            print (search_list)       ##ANOTHER DEBUGGING LINE
-
+            #print (search_list)       ##ANOTHER DEBUGGING LINE
+            result_list.append(' Has Dependancy [')
             recursive_list((search_list), result_list)
-
+            result_list.append(']')
         
         return result_list
         
@@ -139,7 +142,7 @@ def treemode(request):
     if 'title' in data != '':
 
         course_data = CourseTree(
-            name=get_value("title"),
+            name= dep.upper() + ' ' + num.upper() + ': ' + get_value("title"),
             prerequisite=identify_prereqs(get_value("prerequisites")), # this can't be done this way. Pre-reqs must be linked
             prereqList=recursive_list(identify_prereqs(get_value("prerequisites")), result_list),
         )
