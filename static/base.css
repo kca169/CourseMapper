@@ -1,65 +1,239 @@
+:root{
+    /* font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif; */
+    font-family: Helvetica, sans-serif;
+}
 body{
-    background-color:#e5e2e2 ;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width:auto;
+    height: 100%;
+    /* background-color: #f2faf8; */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    color:#4a4f5f;
+    background-color:#e5e2e2;  
+    background-image: url("https://scontent.fyvr2-1.fna.fbcdn.net/v/t1.0-9/79805613_10157002205723719_2884943955223379968_o.jpg?_nc_cat=101&ccb=1-3&_nc_sid=973b4a&_nc_ohc=eu_dfKA_rJEAX9ORiBB&_nc_ht=scontent.fyvr2-1.fna&oh=4e69203dda98a4045291e27952943e1d&oe=6070A195");
+    background-size: cover;
+  }
+
+
+.logo{
+  display: block;
+  margin-left: auto;
+  margin-right: auto; 
 }
 
-.title{
-    /* background-color:rgba(16, 78, 107, 0.6); */
-    color: #ffffff;
-    text-align: center;
-    text-shadow: 1px 3px #000000;
-    font-size: 75px;
-    letter-spacing: 5px;
+.title {
+  color: rgb(211, 211, 211);
+  text-align: center;
+  text-shadow: 1px 3px #000000;
+  font-size: 75px;
+  letter-spacing: 7px;
 }
 
-.description{
-    color:#284b63;
-    text-align: center;
-    letter-spacing: 2.5px;
+.description {
+  color: #284b63;
+  text-align: center;
+  letter-spacing: 2.5px;
 }
 
 .redirect {
-    text-align: center;
+  text-align: center;
 }
 
 /* styling for just the login page */
-.login{
-    color: #ffffff;
-    font-size: 50px;
+.reg-title{
+  margin-top:10rem;
+  font-size: 50px;
+}
+.reg-body{
+  background-color: #e5e2e2;
+  color: #6c757d;
+  font-size: 17px;
+  padding: 30px;
+  margin-bottom:-20rem;
 }
 
-.form-group{
-    padding-bottom: 20px;
+.form-group {
+  padding: 20px;
 }
 
 /* styling for just the signup page */
-.signup{
-    color: #ffffff;
-    font-size: 50px;
+.signup {
+  color: #6c757d;
+  background-color: #e5e2e2;
+  font-size: 20px;
+  padding: 30px;
+  margin-bottom:0;
 }
 
+/* Home page */
+.home{
+    text-indent: 20px;   
+    text-align: center;
+}
+
+.logo-title{
+  color:white;
+  font-size: 50px;
+  word-spacing: 5px;
+}
+
+.logo-title img{
+  margin-left:-5px;
+  display: inline-block;
+  vertical-align: middle;
+
+}
+
+.option-1{
+  background-color: #ffffffef;
+  padding-top: 10px;
+}
+
+.option-2{
+  background-color: #e5e2e2f1;
+  padding-top: 30px;
+  padding-bottom: 35px;
+}
 /* styling for both signup and login pages */
-
-form{
-    background-color: #ffffff; 
-    opacity: 75%;
-    padding: 5%;
-    margin: -5px;
+form {
+  padding: 3%;
+  margin: -5px;
 }
 
-button{
-display: inline-block;
+.user_input{
+    width: 50%;
+    height: 40px;
+    background: none;
+    border: 1.5px solid #89b0ae;
+    margin-left: 0px;
+}
+
+.user_input:focus{
+  outline: none;
+  border-color: #89b0ae;
+  box-shadow: 0 0 10px #b5cfce;
+}
+
+.user_input:hover{
+  outline: none;
+  border-color: #89b0ae;
+  box-shadow: 0 0 10px #b5cfce;
+}
+
+.submit_button {
+  margin-left: 0;
   padding: 0.5em 3em;
-  border: 0.15em solid #ffffff;
   font-family: "Roboto", sans-serif;
   font-weight: bold;
-  color: #495057;
+  color: #353535;
   text-transform: uppercase;
-  background-color: #d9d9d9;
+  border: 2px solid #89b0ae;
   border-radius: 5px;
 }
 
-button:hover{
-    color: #353535;
-    border-color: #353535;
+.submit_button:hover {
+  outline: none;
+  border-color: #89b0ae;
+  box-shadow: 0 0 10px #b5cfce;
 }
+
+/* Navigation bar */
+.navigation ul{
+  background: #faf9f9;
+  width:auto;
+  list-style: none;
+  padding: 10px 12px;
+  margin:0;
+  overflow: hidden;
+}
+
+.navigation a {
+  padding: 10px 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 700;
+  color: #646b72;
+  display: block;
+  float: left;
+  background-color: #dbebea;
+  border-radius: 5px;
+  margin: 5px; 
+}
+
+.navigation a:hover {
+  outline: none;
+  border-color: #89b0ae;
+  box-shadow: 0 0 10px #b5cfce;
+  }
+
+
+.logout{
+  float: right;
+  padding-top: 0;
+}
+ .name{
+    font-size: 17px;;
+    font-weight: 700;
+    float: right;
+    margin-top: 11px;
+    margin-right: 20px;
+  }
+
+/* Admin panel */
+.admin{
+    margin-left: 0px;
+    width: 98%;
+    padding: 10px 5px;
+    padding-bottom: 10px;
+    opacity: 75%;
+    overflow: hidden;
+    float:left;
+}
+
+.admin h1{
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.admin .dropbtn{
+  border:none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555b6e;
+  padding: 10px 10px;
+  background-color: white;
+}
+
+.admin-content{
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.admin-content a{
+    display: block;
+    background: white;
+    padding: 10px 15px;
+    color: black;
+    text-decoration: none;
+    font-size: 15px;;
+    text-align: center;
+}
+
+.admin a:hover {
+    background-color: #a3a3a3;
+    color: black;
+}
+
+.admin:hover .admin-content{
+  display: block;
+}
+
+.admin:hover .dropbtn{background-color: white;}
