@@ -10,4 +10,3 @@
 [6] <https://www.w3schools.com/tags/tag_br.asp>
 [7] <https://learndjango.com/tutorials/django-login-and-logout-tutorial>
 [8] <https://stackabuse.com/recursive-model-relationships-in-django/>
-[9] <https://docs.djangoproject.com/en/3.1/topics/testing/overview/>
