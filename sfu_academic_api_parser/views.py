@@ -92,7 +92,6 @@ def manual_input(request):
         value = data[a_key]
         return value 
 
-<<<<<<< HEAD
     #this function identify_prereqs() gets rid of the filler in prerequisites and returns only the prereq codes as a string
     def identify_prereqs(preq):
         coursecodes_list = ['CMPT', 'MATH', 'MACM', 'ENSC']
@@ -131,9 +130,6 @@ def manual_input(request):
         return
 
 
-=======
-    # duplicate = False
->>>>>>> master
     #create a Course object from the parsed Json file (aka the dict 'data')
 
     # if the page has been initialized, and a field is blank, Django spits out an exception.
@@ -155,15 +151,10 @@ def manual_input(request):
             number_str=get_value("number"), # string number
             number=num_to_enter, # real number
             description=get_value("description"),
-<<<<<<< HEAD
-            prerequisites=get_value("prerequisites"), # this can't be done this way. Pre-reqs must be linked
             prereqArray=identify_prereqs(get_value("prerequisites")),
-            units=get_value('units'),
-=======
             # prerequisites=get_value("prerequisites"), # this can't be done this way. Pre-reqs must be linked
             units=int(get_value('units')),
             signature=year + semester + get_value("title") + get_value("description") + get_value("number") + get_value("units")
->>>>>>> master
         )
         
         course_data.save()                        # Need to figure out how to chekc if a course already exists 

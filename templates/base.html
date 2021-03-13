@@ -18,8 +18,8 @@
       {%if user.is_authenticated%}
         <div class="navigation">
         <ul>
-          <li>Tree Diagram (unavailable)</li>
           <li><a href="{%url 'home' %}"> <i class="fa fa-home"></i></a></li>
+          <li><a href="{% url 'treemode' %}">Tree Mode</a></li>
           <li><a href="{% url 'directions' %}">Directions Mode</a></li>
           <li class='logout'><a href="{% url 'logout' %}" style="font-size:17px;">Log Out <i class="fa fa-arrow-right"></i></a></li>
           <li class="name">Hi {{ user.username|safe }}!</li>
