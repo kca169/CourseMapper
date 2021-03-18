@@ -108,27 +108,33 @@ def treemode(request):
             url = f'http://www.sfu.ca/bin/wcm/academic-calendar?{year}/{semester}/courses/{dep}/{num}' # changed to formatted string
             url_raw = url
             url = requests.get(url)
-            courses = url.json()
-            courses_str = json.dumps(courses)   # Convert 'courses' to a JSON string 
-            data = json.loads(courses_str)      # Convert to a Python dictionary
+
+            # Course does not exist. Throw out this call and try again
+            if url.status_code == 200:
+                courses = url.json()
+                courses_str = json.dumps(courses)   # Convert 'courses' to a JSON string 
+                data = json.loads(courses_str)      # Convert to a Python dictionary
 
            
-            if prereq_list[i] not in result_list: #checks if a course in the result list already exists, only appends if it does not exist
-                result_list.append(prereq_list[i])
+                if prereq_list[i] not in result_list: #checks if a course in the result list already exists, only appends if it does not exist
+                    result_list.append(prereq_list[i])
 
-            temp_list=identify_prereqs(data["prerequisites"])
+                temp_list=identify_prereqs(data["prerequisites"])
 
-            for existingcourses in temp_list:
-                if existingcourses not in result_list:
-                    search_list.append(existingcourses)
+                for existingcourses in temp_list:
+                    if existingcourses not in result_list:
+                        search_list.append(existingcourses)
 
-            if (dep.upper()+' '+num.upper()) in search_list:
-                search_list.remove(dep.upper()+' '+num.upper())
+                if (dep.upper()+' '+num.upper()) in search_list:
+                    search_list.remove(dep.upper()+' '+num.upper())
 
-            #print (search_list)       ##ANOTHER DEBUGGING LINE
-            result_list.append(' Has Dependancy [')
-            recursive_list((search_list), result_list)
-            result_list.append(']')
+                # print (search_list)       ##ANOTHER DEBUGGING LINE
+                result_list.append(' Has Dependancy [')
+                recursive_list((search_list), result_list)
+                result_list.append(']')
+            
+
+            
         
         return result_list
         
