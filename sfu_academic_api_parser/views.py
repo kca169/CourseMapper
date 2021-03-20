@@ -8,9 +8,7 @@ from django.template import loader
 import requests
 import json
 
-#This function GET's from the provided url, turns the resuld into JSON then loads and renders directions.html
-
-# Refs: [3], [4]
+# Refs: [3], [4], [10]
 
 def search(request):
 
@@ -79,8 +77,6 @@ def manual_input(request):
     url_raw = url
     url = requests.get(url)
     courses = url.json()
-    
-    
     courses_str = json.dumps(courses)   # Convert 'courses' to a JSON string 
     data = json.loads(courses_str)      # Convert to a Python dictionary
     # print(type(data))     #debug
@@ -148,7 +144,6 @@ def manual_input(request):
             code=dep.upper(),
             year=int(year),
             semester=semester.capitalize(),
-            number_str=get_value("number"), # string number
             number=num_to_enter, # real number
             description=get_value("description"),
             prereqArray=identify_prereqs(get_value("prerequisites")),
@@ -178,6 +173,160 @@ def manual_input(request):
     # return render(request, 'sfu_academic_api_parser/directions.html', context)    # previous return from when we directly scraped from API 
     return render(request, 'sfu_academic_api_parser/manual_input.html', new_context)
    
+def automatic_parser(request):
+
+    ''' REFERENCE:
+    >>> print(url_dict[0]['value'])
+    2013
+    >>> print(url_dict[1]['value'])
+    2014
+    >>> print(url_dict[2]['value'])
+    2015
+    '''
+    # getting user input
+    max_year = request.POST.get('max_year', '')
+    min_year = request.POST.get('min_year', '')
+    button_pressed = True if request.POST.get('Submit') == 'Submit' else False
+
+    # get all years from API
+    years_url = "http://www.sfu.ca/bin/wcm/academic-calendar"
+    years_url = requests.get(years_url) # sending GET request
+    years_json = years_url.json() # intepret as JSON file
+    years_str = json.dumps(years_json)   # Convert 'years_raw' to a JSON string 
+    years_dict = json.loads(years_str)      # Convert to a Python dictionary
+    years_all = [] # declare list that will be filled by for-loop below
+
+    # converting all years to integers and appending them to the years_all list
+    for x in range(len(years_dict)):
+        years_all.append(int(years_dict[x]['value']))
+    
+    years_to_search = [] # declaring list that shall be a subset of all years, which shall be searched
+
+    # If there is input and the button has been pressed, then get all years that are within the range selected.
+    if max_year != '' and min_year != '' and button_pressed == True:
+        
+        max_year_int = int(max_year) # converting inputs to integers
+        min_year_int = int(min_year)
+
+        # filter out years within range
+        for x in years_all:
+            if years_all[x] >= min_year_int and years_all[x] <= max_year_int:
+                years_to_search.append(years_all[x])
+
+    # else if the button has been pressed but no input, just get the current (maximum) year
+    elif button_pressed == True:
+        # get maximum year
+        years_to_search.append(years_all[-1])
+    
+    # else, do nothing.
+
+    # This is where the fun begins.
+    # Loop 0 - Search all years
+    if button_pressed == False:
+        return render(request, 'sfu_academic_api_parser/automatic_input.html')
+
+
+    for x in range(len(years_to_search)):
+        year_str = str(years_to_search[x]) # convert current year to string
+        
+        print(years_to_search[x])
+
+        # get all semesters for that year from API
+        semester_url = f'http://www.sfu.ca/bin/wcm/academic-calendar?{year_str}' # construct URL
+        semester_url = requests.get(semester_url) # send GET request
+        semester_json = semester_url.json() # interpret as JSON file
+        semester_str = json.dumps(semester_json) # convert to JSON string
+        semester_dic = json.loads(semester_str) # convert to list of dictionaries
+        semester_list = [] # declare list for the filtered out semester data
+
+        # filter semesters
+        # this may be updated with an IF statement if we implement semester-by-semester selection
+        for i in range(len(semester_dic)):
+            semester_list.append(semester_dic[i]['value'])
+        
+        # Loop 1 - search within semesters for departments (course codes)
+        for i in range(len(semester_list)):
+            departments_url = f'http://www.sfu.ca/bin/wcm/academic-calendar?{year_str}/{semester_list[i]}/courses' # construct URL
+            departments_url = requests.get(departments_url) # send GET request
+            departments_json = departments_url.json() # convert to json file
+            departments_str = json.dumps(departments_json) # save as string
+            departments_dic = json.loads(departments_str) # save as list of dictionaries
+            departments_list = [] # declare list of all departments
+            
+            # copying all departments to list
+            for k in range(len(departments_dic)):
+                departments_list.append(departments_dic[k]['value'])
+            
+            print(semester_list[i]) # debug
+            
+            # Loop 2 - getting course numbers in department
+            for k in range(len(departments_list)):
+                course_n_url = f'http://www.sfu.ca/bin/wcm/academic-calendar?{year_str}/{semester_list[i]}/courses/{departments_list[k]}' # construct URL
+                course_n_url = requests.get(course_n_url) # send GET request
+                course_n_json = course_n_url.json() # convert to json file
+                course_n_str = json.dumps(course_n_json) # save as string
+                course_n_dic = json.loads(course_n_str) # save as list of dictionaries
+                course_n_list = [] # declare list of all departments
+
+                print(departments_list[k]) # debug
+
+                # Copying course numbers
+                for course_n_counter in range(len(course_n_dic)):
+                    course_n_list.append(course_n_dic[course_n_counter]['value'])
+                
+                # Loop 3 - saving courses into database
+                for course_n_counter in range(len(course_n_list)):
+                    course_url = f'http://www.sfu.ca/bin/wcm/academic-calendar?{year_str}/{semester_list[i]}/courses/{departments_list[k]}/{course_n_list[course_n_counter]}' # construct URL
+                    course_url = requests.get(course_url) # send GET request
+                    course_json = course_url.json() # convert to json file
+                    course_str = json.dumps(course_json) # save as string
+                    course_dic = json.loads(course_str) # save as list of dictionaries
+                    
+                    w_course = False
+
+                    print(course_n_list[course_n_counter])
+
+                    # Sanitize number for chars
+                    number_sanitized = int()
+                    try:
+                        number_sanitized = int(course_dic['number'])
+                    except:
+                        # checking for w course
+                        try: 
+                            if course_dic['number'][-1].lower() == 'w':
+                                number_sanitized = int(course_dic['number'][:-1])
+                                print("Sanitized!")
+                                w_course = True
+                            else:
+                                print("Parser: Unexpected number!")
+                        except: 
+                            print("Parser: UNKNOWN ERROR")
+                    
+                    # creating object
+
+                    try: 
+                        new_course = Course.objects.create(
+                            code=departments_list[k].upper(),
+                            title=course_dic['title'],
+                            description=course_dic['description'],
+                            prerequisites_str=course_dic['prerequisites'],
+                            number=number_sanitized,
+                            units=course_dic['units'],
+                            year=years_to_search[x],
+                            semester=semester_list[i].capitalize(),
+                            w_course=w_course
+                        )
+                        # generating signature
+                        new_course.signature = new_course.gen_signature()
+                        new_course.save()
+                    except:
+                        print("Course Already added!")
+                    
+                    
+
+                    # done!
+    print("All courses added") #debug
+    return render(request, 'sfu_academic_api_parser/automatic_input.html')
 
 
 def directions(request):

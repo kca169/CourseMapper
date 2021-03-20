@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Automatic Input{% endblock %}
+
+{% block content %}
+
+<!-- Refs: [5], [6] -->
+<div class='body'>
+<h1>Automatic Course Entry</h1>
+<h3>Use this tool to automatically import courses from the REST API to the CourseMapper Database.</h3>
+<h5>Note: "course code" refers to the set of letters before a course number, examples: "CMPT", "MACM", "PHYS".</h5>
+<h5>Leave fields blank for default database configuration (current year, all course codes)</h5>
+
+<form class='auto_course_entry' action="/sfu_academic_api_parser/automatic_input/" method="post">
+    {% csrf_token %}
+    <!-- {{ forms }} -->
+<div class='user-input'>
+    
+    <input placeholder="Maximum year" id="max_year" type="number" name="min_year" maxlength="100">
+    <br>
+    <br>
+    <input placeholder="Minimum year" id="min_year" type="number" name="max_year" maxlength="100">
+    <br>
+    <br>
+
+</div>
+    <input class='submit-btn' type="submit" value="Submit" name="Submit"/>
+    
+</form>
+
+<div class="output">
+
+ <b>
+ {{status_parser.complete}} 
+</div>
+
+</div>
+{% endblock %}
