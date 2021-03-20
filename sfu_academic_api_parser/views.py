@@ -299,6 +299,8 @@ def automatic_parser(request):
                             print("Parser: Unexpected number!")
                     
                     # creating object
+
+                    try: 
                     new_course = Course.objects.create(
                         code=departments_list[k],
                         title=course_dic['title'],
