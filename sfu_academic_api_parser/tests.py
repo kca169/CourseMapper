@@ -105,6 +105,8 @@ class rest_api_test(TestCase):
                     
                     print(dep.upper() + " " + str(num) + " -- " + str(url.status_code))
 
+# When integrity model is created, we can create this.
+# class database_integrity_checks(TestCase):
 
 
 
