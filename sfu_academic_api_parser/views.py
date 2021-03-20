@@ -293,8 +293,9 @@ def automatic_parser(request):
                     except:
                         # checking for w course
                         try: 
-                            if course_dic['number'][-1] == "w":
-                                number_sanitized = int(course_dic['number'][-1])
+                            if course_dic['number'][-1].lower() == 'w':
+                                number_sanitized = int(course_dic['number'][:-1])
+                                print("Sanitized!")
                                 w_course = True
                             else:
                                 print("Parser: Unexpected number!")
@@ -305,14 +306,14 @@ def automatic_parser(request):
 
                     try: 
                         new_course = Course.objects.create(
-                            code=departments_list[k],
+                            code=departments_list[k].upper(),
                             title=course_dic['title'],
                             description=course_dic['description'],
                             prerequisites_str=course_dic['prerequisites'],
                             number=number_sanitized,
                             units=course_dic['units'],
                             year=years_to_search[x],
-                            semester=semester_list[i],
+                            semester=semester_list[i].capitalize(),
                             w_course=w_course
                         )
                         # generating signature
@@ -324,6 +325,7 @@ def automatic_parser(request):
                     
 
                     # done!
+    print("All courses added") #debug
     return render(request, 'sfu_academic_api_parser/automatic_input.html')
 
 
