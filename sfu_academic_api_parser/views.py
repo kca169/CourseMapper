@@ -292,11 +292,14 @@ def automatic_parser(request):
                         number_sanitized = int(course_dic['number'])
                     except:
                         # checking for w course
-                        if course_dic['number'][-1] == "w":
-                            number_sanitized = int(course_dic['number'][-1])
-                            w_course = True
-                        else:
-                            print("Parser: Unexpected number!")
+                        try: 
+                            if course_dic['number'][-1] == "w":
+                                number_sanitized = int(course_dic['number'][-1])
+                                w_course = True
+                            else:
+                                print("Parser: Unexpected number!")
+                        except: 
+                            print("Parser: UNKNOWN ERROR")
                     
                     # creating object
 
