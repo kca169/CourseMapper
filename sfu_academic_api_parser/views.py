@@ -301,20 +301,24 @@ def automatic_parser(request):
                     # creating object
 
                     try: 
-                    new_course = Course.objects.create(
-                        code=departments_list[k],
-                        title=course_dic['title'],
-                        description=course_dic['description'],
-                        prerequisites_str=course_dic['prerequisites'],
-                        number=number_sanitized,
-                        units=course_dic['units'],
-                        year=years_to_search[x],
-                        semester=semester_list[i],
-                        w_course=w_course
-                    )
-                    # generating signature
-                    new_course.signature = new_course.gen_signature()
-                    new_course.save()
+                        new_course = Course.objects.create(
+                            code=departments_list[k],
+                            title=course_dic['title'],
+                            description=course_dic['description'],
+                            prerequisites_str=course_dic['prerequisites'],
+                            number=number_sanitized,
+                            units=course_dic['units'],
+                            year=years_to_search[x],
+                            semester=semester_list[i],
+                            w_course=w_course
+                        )
+                        # generating signature
+                        new_course.signature = new_course.gen_signature()
+                        new_course.save()
+                    except:
+                        print("Course Already added!")
+                    
+                    
 
                     # done!
     return render(request, 'sfu_academic_api_parser/automatic_input.html')
