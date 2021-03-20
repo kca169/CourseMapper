@@ -16,7 +16,6 @@ class UniquenessTestCase(TestCase):
         """ Create test course object """
         test_1 = Course.objects.create(
             title="Test Course",
-            number_str="TEST 101",
             description="This is a test course for CourseMapper.",
             semester="Spring",
             code="TEST",
@@ -35,7 +34,6 @@ class UniquenessTestCase(TestCase):
         """ tries to create a duplicate course"""
         test_1 = Course.objects.create(
             title="Test Course",
-            number_str="TEST 101",
             description="This is a test course for CourseMapper.",
             semester="Spring",
             code="TEST",
@@ -50,7 +48,6 @@ class UniquenessTestCase(TestCase):
         # create identical course
         test_2 = Course.objects.create (
             title="Test Course",
-            number_str="TEST 101",
             description="This is a test course for CourseMapper.",
             semester="Spring",
             code="TEST",
@@ -91,7 +88,6 @@ class rest_api_test(TestCase):
                             code=dep.upper(),
                             year=int(year),
                             semester=sem.capitalize(),
-                            number_str=data["number"], # string number
                             number=int(data["number"]), # real number
                             description=data["description"],
                             units=int(data["units"]),
@@ -105,7 +101,6 @@ class rest_api_test(TestCase):
                         self.assertEquals(course_data.code, dep.upper())
                         self.assertEquals(course_data.year, int(year))
                         self.assertEquals(course_data.semester, sem.capitalize())
-                        self.assertEquals(course_data.number_str, data["number"])
                         self.assertEquals(course_data.number, int(data["number"]))
                     
                     print(dep.upper() + " " + str(num) + " -- " + str(url.status_code))
