@@ -108,36 +108,69 @@ def treemode(request):
             url = f'http://www.sfu.ca/bin/wcm/academic-calendar?{year}/{semester}/courses/{dep}/{num}' # changed to formatted string
             url_raw = url
             url = requests.get(url)
-
-            # Course does not exist. Throw out this call and try again
-            if url.status_code == 200:
-                courses = url.json()
-                courses_str = json.dumps(courses)   # Convert 'courses' to a JSON string 
-                data = json.loads(courses_str)      # Convert to a Python dictionary
+            courses = url.json()
+            courses_str = json.dumps(courses)   # Convert 'courses' to a JSON string 
+            data = json.loads(courses_str)      # Convert to a Python dictionary
 
            
-                if prereq_list[i] not in result_list: #checks if a course in the result list already exists, only appends if it does not exist
-                    result_list.append(prereq_list[i])
+            if prereq_list[i] not in result_list: #checks if a course in the result list already exists, only appends if it does not exist
+                result_list.append(prereq_list[i])
 
-                temp_list=identify_prereqs(data["prerequisites"])
+            temp_list=identify_prereqs(data["prerequisites"])
 
-                for existingcourses in temp_list:
-                    if existingcourses not in result_list:
-                        search_list.append(existingcourses)
+            for existingcourses in temp_list:
+                if existingcourses not in result_list:
+                    search_list.append(existingcourses)
 
-                if (dep.upper()+' '+num.upper()) in search_list:
-                    search_list.remove(dep.upper()+' '+num.upper())
+            if (dep.upper()+' '+num.upper()) in search_list:
+                search_list.remove(dep.upper()+' '+num.upper())
 
-                # print (search_list)       ##ANOTHER DEBUGGING LINE
-                result_list.append(' Has Dependancy [')
-                recursive_list((search_list), result_list)
-                result_list.append(']')
-            
+            #print (search_list)       ##ANOTHER DEBUGGING LINE
+            result_list.append('[')
+            recursive_list((search_list), result_list)
+            result_list.append(']')
 
-            
+
+        isemptybracket = 0
+        tree_result_array = list()
+        for i in range(len(result_list)-1):    
+            if result_list[i] == '[':
+                temp = i + 1
+                if result_list[temp] != ']':
+                    tree_result_array.append(result_list[i])
+            elif result_list[i] == ']':
+                temp = i - 1
+                if result_list[temp] != '[':
+                    tree_result_array.append(result_list[i])
+            else: 
+                tree_result_array.append(result_list[i])
+
+        return tree_result_array
         
-        return result_list
+    def treeify(prereqList):
+        outputlist= list()
         
+        stack = list()
+        stackcounter = 1
+
+        if 'No Prerequisites For This Course' in prereqList: #when the list of prereqs is empty
+            outputlist.append('No Prerequisites For This Course')
+            return outputlist
+
+        for i in range(len(prereqList)-1):
+            if (prereqList[i]=='['):
+                stackcounter += 1
+            elif (prereqList[i]==']'):
+                stackcounter -= 1
+
+            else: 
+                for x in range (0, stackcounter):
+                    outputlist.append("indent")
+                outputlist.append(prereqList[i])
+
+        print(outputlist)
+        return outputlist
+
 
 
     #create a Course object from the parsed Json file (aka the dict 'data')
@@ -149,8 +182,9 @@ def treemode(request):
 
         course_data = CourseTree(
             name= dep.upper() + ' ' + num.upper() + ': ' + get_value("title"),
-            prerequisite=identify_prereqs(get_value("prerequisites")), # this can't be done this way. Pre-reqs must be linked
+            prerequisite=get_value("prerequisites"), # this can't be done this way. Pre-reqs must be linked
             prereqList=recursive_list(identify_prereqs(get_value("prerequisites")), result_list),
+            prereqtexttree=treeify(recursive_list(identify_prereqs(get_value("prerequisites")), result_list)),
         )
         course_data.save()                        # Need to figure out how to chekc if a course already exists 
         new_context = {'course_data':course_data} #This is the context for rendering to directions.html
