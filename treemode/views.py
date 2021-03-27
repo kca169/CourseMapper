@@ -110,7 +110,7 @@ def treemode(request):
             url = requests.get(url)
 
             # FIX - Only add to tree if pre-req exists.
-            if True:
+            if url.status_code == 200:
             #if url.status_code == 200:
                 courses = url.json()
                 courses_str = json.dumps(courses)   # Convert 'courses' to a JSON string 
@@ -135,21 +135,21 @@ def treemode(request):
                 result_list.append(']')
 
 
-            isemptybracket = 0
-            tree_result_array = list()
-            for i in range(len(result_list)-1):    
-                if result_list[i] == '[':
-                    temp = i + 1
-                    if result_list[temp] != ']':
+                isemptybracket = 0
+                tree_result_array = list()
+                for i in range(len(result_list)-1):    
+                    if result_list[i] == '[':
+                        temp = i + 1
+                        if result_list[temp] != ']':
+                            tree_result_array.append(result_list[i])
+                    elif result_list[i] == ']':
+                        temp = i - 1
+                        if result_list[temp] != '[':
+                            tree_result_array.append(result_list[i])
+                    else: 
                         tree_result_array.append(result_list[i])
-                elif result_list[i] == ']':
-                    temp = i - 1
-                    if result_list[temp] != '[':
-                        tree_result_array.append(result_list[i])
-                else: 
-                    tree_result_array.append(result_list[i])
 
-            return tree_result_array
+                return tree_result_array
 
             
         
