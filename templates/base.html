@@ -33,6 +33,7 @@
   <button class='dropbtn'>Administrative options <i class="fa fa-bars"></i></button>
   <!--Manual input and database search restricted to Superuser access only-->
   <div class="admin-content">
+    <a href="{% url 'admin:index' %}">Django Administrative page</a>
     <a href="{% url 'automatic_parser' %}">Automatic Course Parser</a>
     <a href="{% url 'manual_input' %}">Add course to database (manual)</a>
     <a href="{% url 'database_search' %}">Search database</a>
