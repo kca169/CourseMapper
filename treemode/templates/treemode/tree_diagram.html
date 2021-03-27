@@ -41,14 +41,23 @@
     <input type="submit" value="Submit">
     
 </form>
-
+<div>
+    <label> 
  <b>Title:       {{course_data.name}}</b> <br><br>
 Prerequisites: {{course_data.prerequisite}} <br><br>
 PrereqArray: {{course_data.prereqList}}<br><br>
+PrereqTree: <br>
 
- <ul>
-    {% comment %} {%for courses in courses%}
-        <li>{{courses.prerequisite}}</li>
-        {%endfor%} {% endcomment %}
-</ul>
+{% for i in course_data.prereqtexttree %}
+ {% if i == 'indent' %} 
+     &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ==>
+{% elif i != 'indent' %}
+ {{i}} <br>
+{% endif %}
+
+
+{% endfor %}
+</label></div>
+
+<br><br><br><br><br><br>
 {% endblock %}
