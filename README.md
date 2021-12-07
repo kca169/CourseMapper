@@ -1,3 +1,5 @@
+# CMPT 276 Project 
+
 # Installation Instructions
 
 ## Dependencies
